@@ -11,6 +11,7 @@ import librosa.display
 
 import os
 import glob
+from network import classifier_1d
 dict1 = {'artifact':0,'extrahls':1,'extrastole':2, 'murmur':3,'normal':4,}
 
 
@@ -116,3 +117,18 @@ def transform_and_save_to_npy_1d_part(folders_in,folder_out):
     print(labels.shape)
     np.save("data/"+"inp_1d.npy",inp)
     np.save("data/"+"labels_1d.npy",labels)
+
+def pred(filename):
+    model = classifier_1d(weights = "weights/weight_1d.h5")
+    rate,data = read(filename)
+    data = data.reshape(1,data.shape[0])
+    img = cv2.resize(data, (int((data.shape[1]/rate)*100),1))
+    img = resize(img, width=500)
+    img = img.reshape(1,img.shape[1], img.shape[0])
+
+    out = model.predict(img)
+
+    label = ['artifact','extrahls','extrastole', 'murmur','normal']
+
+    i = np.argmax(out[0])
+    return label[i],out[0][i]
