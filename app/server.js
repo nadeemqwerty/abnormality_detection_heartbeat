@@ -33,6 +33,7 @@ app.post('/upload',function(req, res) {
         let response = (await runPythonScript()).split(',')
         let value = response[0]
         let label = response[1]
+        console.log(label)
         return res.status(200).send({value: value, label: label})
     })
 });
