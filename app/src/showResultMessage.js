@@ -1,35 +1,52 @@
 import React from 'react';
 import Artifact from './predictedLabelsMessage/artifact'
-import Extrastole from './predictedLabelsMessage/extrastole'
+import Extrasystole from './predictedLabelsMessage/extrasystole'
 import Extrahls from './predictedLabelsMessage/extrahls'
 import Murmur from './predictedLabelsMessage/murmur'
 import Normal from './predictedLabelsMessage/normal'
 
 const msgStyle = {
-    background: 'blue',
-    borderRadius: 20
+    main: {
+        borderRadius: 20,
+        borderSize: 4,
+        borderColor: '#694',
+        borderStyle: 'solid'
+    },
+    header: {
+        fontFamily: 'serif',
+        background: 'rgb(147, 199, 121)',
+        color: 'black',
+        fontSize: 40,
+        borderRadius: 20,
+        borderBottomRightRadius: 0,
+        borderBottomLeftRadius: 0
+    },
+    body: {
+        fontFamily: 'serif',
+        color: 'black',
+        background: 'white',
+        borderRadius: 20,
+        borderTopRightRadius: 0,
+        borderTopLeftRadius: 0
+    }
 }
 
 function ShowResultMessage(props) {
     const label = props.label;
     let msg = null;
     switch(label) {
-        case 'artifact': msg = <Artifact/>;
+        case 'artifact': msg = <Artifact style={msgStyle} val={props.val} />;
                             break
-        case 'extrastole': msg = <Extrastole/>
+        case 'extrasystole': msg = <Extrasystole style={msgStyle} val={props.val} />
                             break
-        case 'extrahls': msg = <Extrahls/>
+        case 'extrahls': msg = <Extrahls style={msgStyle} val={props.val} />
                             break
-        case 'murmur': msg = <Murmur/>
+        case 'murmur': msg = <Murmur style={msgStyle} val={props.val} />
                             break
-        default: msg = <Normal/>
+        default: msg = <Normal style={msgStyle} val={props.val} />
                             break
     }
-    return (
-        <div style={msgStyle}>
-            {msg}
-        </div>
-    )
+    return msg
 }
 
 export default ShowResultMessage;

@@ -45,13 +45,12 @@ class App extends React.Component {
             <br />
             <input type='submit' />
           </form>
-          {
-            this.state.predictedVal && <h1>{this.state.predictedVal}</h1>
-          }
-          {
-            this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} />
-          }
         </header>
+        <body className="App-body">
+          {
+            this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} val={this.state.predictedVal} />
+          }
+        </body>
       </div>
     );
   }
