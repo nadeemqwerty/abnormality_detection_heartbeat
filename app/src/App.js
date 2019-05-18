@@ -3,6 +3,8 @@ import './App.css';
 import axios from 'axios';
 import ShowResultMessage from './showResultMessage';
 
+const URL = 'http://10.8.9.12:8000/upload/'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ class App extends React.Component {
   handleSubmit = (e) => {
     const data = new FormData()
     data.append('file', this.state.file)
-    axios.post('http://10.8.12.228:8080/upload/',data, {})
+    axios.post(URL ,data, {})
     .then(res => {
       if(res.status === 200){
         this.setState({
@@ -31,6 +33,7 @@ class App extends React.Component {
   }
 
   handleChange = (e) => {
+alert(e.target.files[0].name)
     this.setState({
       file: e.target.files[0]
     })
