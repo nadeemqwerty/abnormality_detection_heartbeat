@@ -4,9 +4,12 @@ var app = express();
 var multer = require('multer')
 var cors = require('cors');
 
-var fname = Date.now() + ".wav"
+const fname = Date.now() + ""
 
-const COMMAND = "python3 backend/backend.py public/data/" + fname
+const PORT = 8000
+
+const COMMAND = "ffmpeg -i public/data/" + fname + " -ac 1 public/data/" + fname + ".wav && python3 backend/backend.py public/data/" + fname + ".wav"
+
 app.use(cors())
 
 var storage = multer.diskStorage({
@@ -30,13 +33,12 @@ app.post('/upload',function(req, res) {
         let response = (await runPythonScript()).split(',')
         let value = response[0]
         let label = response[1]
-        console.log(label)
         return res.status(200).send({value: value, label: label})
     })
 });
 
-app.listen(8000, function() {
-    console.log('App running on port 8000');
+app.listen(PORT, function() {
+    console.log('App running on port ' + PORT);
 });
 
 async function sh(cmd) {

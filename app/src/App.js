@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import ShowResultMessage from './showResultMessage';
 
-const URL = 'http://10.8.9.12:8000/upload/'
+const URL = 'http://10.8.12.228:8000/upload/'
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +33,6 @@ class App extends React.Component {
   }
 
   handleChange = (e) => {
-alert(e.target.files[0].name)
     this.setState({
       file: e.target.files[0]
     })
