@@ -5,8 +5,6 @@ import ShowResultMessage from './showResultMessage';
 import { ClipLoader } from 'react-spinners';
 const URL = 'http://localhost:8000/upload/'
 
-const spinner = <ClipLoader sizeUnit={"px"} size={150} color={'white'} loading={this.state.loading} />
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +56,7 @@ class App extends React.Component {
         </header>
         <body className="App-body">
           {
-            this.state.loading? spinner : this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} val={this.state.predictedVal} />
+            this.state.loading? <ClipLoader sizeUnit={"px"} size={150} color={'white'} loading={this.state.loading} /> : this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} val={this.state.predictedVal} />
           }
         </body>
       </div>
