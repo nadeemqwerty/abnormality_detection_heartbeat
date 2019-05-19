@@ -8,7 +8,7 @@ const fname = Date.now() + ""
 
 const PORT = 8000
 
-const COMMAND = "ffmpeg -i public/data/" + fname + " -ac 1 public/data/" + fname + ".wav && python3 backend/backend.py public/data/" + fname + ".wav"
+const COMMAND = "ffmpeg -i public/data/" + fname + " -ac 1 public/data/" + fname + ".wav && python3 backend/backend.py public/data/" + fname + ".wav && rm public/data/" + fname + "*"
 
 app.use(cors())
 
@@ -25,7 +25,7 @@ var upload = multer({ storage: storage }).single('file')
 
 app.post('/upload',function(req, res) {
     upload(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
+    		if (err instanceof multer.MulterError) {
                 return res.status(500).json(err)
             } else if (err) {
                 return res.status(500).json(err)

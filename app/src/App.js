@@ -2,8 +2,10 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import ShowResultMessage from './showResultMessage';
+import { ClipLoader } from 'react-spinners';
+const URL = 'http://localhost:8000/upload/'
 
-const URL = 'http://10.8.12.228:8000/upload/'
+const spinner = <ClipLoader sizeUnit={"px"} size={150} color={'white'} loading={this.state.loading} />
 
 class App extends React.Component {
   constructor(props) {
@@ -12,11 +14,15 @@ class App extends React.Component {
       file: null,
       predictedVal: null,
       predictedLabel: null,
-      showResultMessage: false
+      showResultMessage: false,
+      loading: false
     };
   }
 
   handleSubmit = (e) => {
+    this.setState({
+      loading: true
+    })
     const data = new FormData()
     data.append('file', this.state.file)
     axios.post(URL ,data, {})
@@ -25,7 +31,8 @@ class App extends React.Component {
         this.setState({
           predictedVal: res.data.value,
           predictedLabel: res.data.label,
-          showResultMessage: true
+          showResultMessage: true,
+          loading: false
         })
       }
     })
@@ -34,7 +41,8 @@ class App extends React.Component {
 
   handleChange = (e) => {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
+      showResultMessage: false
     })
   }
 
@@ -50,7 +58,7 @@ class App extends React.Component {
         </header>
         <body className="App-body">
           {
-            this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} val={this.state.predictedVal} />
+            this.state.loading? spinner : this.state.showResultMessage && <ShowResultMessage label={this.state.predictedLabel} val={this.state.predictedVal} />
           }
         </body>
       </div>
