@@ -122,7 +122,7 @@ def pred(filename):
     model = classifier_1d(weights = "backend/weights/weight_1d.h5")
     rate,data = read(filename)
     data = data.reshape(1,data.shape[0])
-    img = cv2.resize(data, (int((data.shape[1]/rate)*100),1))
+    img = cv2.resize(data, (int((data.shape[1]/rate)*250),1))
     img = resize(img, width=500)
     img = img.reshape(1,img.shape[1], img.shape[0])
 
